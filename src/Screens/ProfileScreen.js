@@ -3,10 +3,11 @@ import React, {useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import UserInfoItem from '../components/UserInfoItem';
 import {useAppContext} from '../contexts/AppContext';
-
+import {useNavigation} from '@react-navigation/native';
+//20521450 - Nguyen Ba Khanh
 const ProfileScreen = () => {
-  const {user, setUser} = useAppContext();
-  useEffect(() => {}, [user]);
+  const {user, logout} = useAppContext();
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.headerInfo}>
@@ -17,20 +18,41 @@ const ProfileScreen = () => {
               uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png',
             }}
           />
-          <Text style={styles.nameHeader}>John Doe</Text>
+          <Text style={styles.nameHeader}>{`${
+            user.name !== undefined ? user.name.firstname : ''
+          } ${user.name !== undefined ? user.name.lastname : ''}`}</Text>
         </View>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.push('EditProfile');
+          }}>
           <Icon name={'edit'} size={25} color={'black'} />
         </TouchableOpacity>
       </View>
-      <UserInfoItem title="Name:" value={user.name} />
+      <UserInfoItem
+        title="Name:"
+        value={`${user.name !== undefined ? user.name.firstname : ''} ${
+          user.name !== undefined ? user.name.lastname : ''
+        }`}
+      />
       <UserInfoItem title="User name:" value={user.username} />
       <UserInfoItem title="Email:" value={user.email} />
       <UserInfoItem title="Phone:" value={user.phone} />
-      <UserInfoItem title="Address:" value={user.address} />
+      <UserInfoItem
+        title="Address:"
+        value={
+          user.address !== undefined
+            ? user.address.number +
+              ', ' +
+              user.address.street +
+              ', ' +
+              user.address.city
+            : ''
+        }
+      />
       <TouchableOpacity
         style={[styles.button, styles.buttonOpen]}
-        onPress={() => {}}>
+        onPress={logout}>
         <Text style={styles.buttonText}>LOGOUT</Text>
       </TouchableOpacity>
     </View>

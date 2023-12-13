@@ -4,15 +4,13 @@ import {
   Text,
   TouchableHighlight,
   View,
-  Pressable,
-  Modal,
-  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CartItem from '../components/CartItem';
 import {useAppContext} from '../contexts/AppContext';
 import MyCustomModal from '../components/MyCustomModal';
 import {useNavigation} from '@react-navigation/native';
+//20521450 - Nguyen Ba Khanh
 
 const CartScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -105,7 +103,8 @@ const styles = StyleSheet.create({
   },
   totalAmount: {
     color: '#000',
-    fontSize: 15,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   button: {
     alignItems: 'center',

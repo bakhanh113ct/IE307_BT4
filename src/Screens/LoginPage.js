@@ -1,25 +1,18 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Icon,
-  TouchableHighlight,
-} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useState} from 'react';
 import FieldInput from '../components/FieldInput';
-// import {UserContext} from '../App';
 import CustomButton from '../components/CustomButton';
 import SocialLogin from '../components/SocialLogin';
 import CustomTextButton from '../components/CustomTextButton';
 import {useAppContext} from '../contexts/AppContext';
+import {useNavigation} from '@react-navigation/native';
 //20521450 - Nguyen Ba Khanh
 
-const LoginPage = ({navigation}) => {
+const LoginPage = () => {
   const {login, isAuthenticated, setIsAuthenticated} = useAppContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
   return (
     // <View></View>
     <View style={styles.container}>
@@ -48,15 +41,15 @@ const LoginPage = ({navigation}) => {
       />
       <Text style={styles.orLoginWith}>Or login with</Text>
       <SocialLogin />
-      {/* <View style={{flexDirection: 'row', paddingTop: 30}}>
+      <View style={{flexDirection: 'row', paddingTop: 30}}>
         <Text>Don't have an account? </Text>
         <CustomTextButton
           onPress={() => {
-            // navigation.navigate('Signup');
+            navigation.navigate('Signup');
           }}
           text={'Sign up here!'}
         />
-      </View> */}
+      </View>
     </View>
   );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {useAppContext} from '../contexts/AppContext';
+//20521450 - Nguyen Ba Khanh
 
 const ProductItem = ({item}) => {
   const navigation = useNavigation();

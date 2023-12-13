@@ -1,14 +1,8 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import {StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CategoryItem from '../components/CategoryItem';
 import ProductItem from '../components/ProductItem';
+//20521450 - Nguyen Ba Khanh
 
 const CategoryScreen = () => {
   const [data, setData] = useState([]);

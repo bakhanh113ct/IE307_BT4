@@ -2,6 +2,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+//20521450 - Nguyen Ba Khanh
 
 const ProductDetail = ({route}) => {
   const navigation = useNavigation();
@@ -28,6 +29,7 @@ const ProductDetail = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 10,
   },
   image: {
     height: '60%',

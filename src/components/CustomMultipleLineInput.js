@@ -1,6 +1,5 @@
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
-
 //20521450 - Nguyen Ba Khanh
 
 const CustomMultipleLineInput = ({isDarkTheme, feedback, setFeedback}) => {

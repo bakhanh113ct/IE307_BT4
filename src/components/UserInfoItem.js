@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+//20521450 - Nguyen Ba Khanh
 
 const UserInfoItem = ({title, value}) => {
   return (

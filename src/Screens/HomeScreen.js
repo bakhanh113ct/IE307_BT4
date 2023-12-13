@@ -6,18 +6,46 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {useAppContext} from '../contexts/AppContext';
-import Colors from '../utils/Colors';
 import ProductItem from '../components/ProductItem';
+import Carousel from 'react-native-reanimated-carousel';
 //20521450-NguyenBaKhanh
+
+const data = [
+  {
+    id: 1,
+    imgUrl:
+      'https://img.freepik.com/free-vector/flat-design-minimal-boutique-sale-background_23-2149337460.jpg',
+  },
+  {
+    id: 2,
+    imgUrl:
+      'https://img.freepik.com/free-vector/fashion-sale-with-discount-template_23-2148936503.jpg',
+  },
+  {
+    id: 3,
+    imgUrl:
+      'https://img.freepik.com/free-vector/flat-spring-social-media-post-template_23-2149291888.jpg?size=626&ext=jpg&ga=GA1.1.595140955.1702472472&semt=ais',
+  },
+  {
+    id: 4,
+    imgUrl:
+      'https://img.freepik.com/free-vector/flat-geometric-fashion-youtube-thumbnail_23-2148918593.jpg?size=626&ext=jpg&ga=GA1.1.595140955.1702472472&semt=ais',
+  },
+  {
+    id: 5,
+    imgUrl:
+      'https://img.freepik.com/free-psd/summer-sale-70-discount_23-2148476960.jpg?size=626&ext=jpg&ga=GA1.1.595140955.1702472472&semt=ais',
+  },
+];
 
 const HomeScreen = ({navigation}) => {
   const [hotDeals, setHotDeals] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const width = Dimensions.get('window').width;
 
   useEffect(() => {
     Promise.all([
@@ -45,32 +73,37 @@ const HomeScreen = ({navigation}) => {
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.homeTitle}>Shop for quality, Shop for style</Text>
-        <Image source={require('../../assets/band.jpg')} style={styles.band} />
-        <Text
-          style={styles.hotDeals}
-          onPress={() => {
-            // navigation.navigate('ProductDetail');
-          }}>
-          Hot Deals
-        </Text>
-        {/* <SectionList
-        sections={data}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({item}) => {
-          console.log(item);
-          return <ProductItem item={item} />;
-        }}
-        renderSectionHeader={({section: {title}}) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-      /> */}
+        <Carousel
+          loop
+          width={width}
+          height={150}
+          autoPlay={true}
+          data={[...new Array(data.length).keys()]}
+          scrollAnimationDuration={1000}
+          renderItem={({index}) => (
+            <Image source={{uri: `${data[index].imgUrl}`}} style={styles.img} />
+          )}
+        />
+        <View style={styles.sessionContainer}>
+          <Text style={styles.hotDeals}>Hot Deals </Text>
+          <Image
+            source={require('../../assets/hot-deal.png')}
+            style={styles.sessionImage}
+          />
+        </View>
         <FlatList
           scrollEnabled={false}
           data={hotDeals}
           numColumns={2}
           renderItem={({item}) => <ProductItem item={item} />}
         />
-        <Text style={styles.hotDeals}>New Arrivals</Text>
+        <View style={styles.sessionContainer}>
+          <Text style={styles.hotDeals}>New Arrivals </Text>
+          <Image
+            source={require('../../assets/medal.png')}
+            style={styles.sessionImage}
+          />
+        </View>
         <FlatList
           scrollEnabled={false}
           data={newArrivals}
@@ -98,11 +131,23 @@ const styles = StyleSheet.create({
   band: {
     alignSelf: 'center',
   },
+  sessionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sessionImage: {
+    height: 30,
+    width: 30,
+  },
   hotDeals: {
     paddingVertical: 16,
     fontSize: 22,
     color: 'red',
     fontWeight: 'bold',
+  },
+  img: {
+    width: '100%',
+    height: 150,
   },
 });
 

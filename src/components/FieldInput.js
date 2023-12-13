@@ -1,6 +1,5 @@
 import {View, Text, StyleSheet, Image, TextInput} from 'react-native';
 import React from 'react';
-
 //20521450 - Nguyen Ba Khanh
 
 const FieldInput = ({icon, placeholder, onChangeText, isPassword = false}) => {
@@ -11,7 +10,7 @@ const FieldInput = ({icon, placeholder, onChangeText, isPassword = false}) => {
         style={styles.inputStyle}
         secureTextEntry={isPassword}
         placeholder={placeholder}
-        keyboardType="email-address"
+        keyboardType={!isPassword ? 'email-address' : 'default'}
         onChangeText={onChangeText}
       />
     </View>

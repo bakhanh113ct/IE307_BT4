@@ -1,5 +1,6 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+//20521450 - Nguyen Ba Khanh
 
 const CategoryItem = ({item, changeSelectedCate, selectedCategory}) => {
   const map = new Map([

@@ -13,57 +13,56 @@ export const useAppContext = () => {
 
 const AppProvider = ({children}) => {
   const [cart, setCart] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState('');
-  const [user, setUser] = useState({
-    email: 'john@gmail.com',
-    password: 'm38rmF$',
-  });
+  const [user, setUser] = useState({});
 
   const login = (username, password) => {
-    if (username === user.email && password === user.password) {
-      axios
-        .post('https://fakestoreapi.com/auth/login', {
-          username: 'johnd',
-          password: 'm38rmF$',
-        })
-        .then(function (response) {
-          setToken(response.data.token);
-          const decoded = jwtDecode(response.data.token);
-          // setUser({
-          //   ...user,
-          //   id: decoded.sub,
-          // });
+    axios
+      .post('https://fakestoreapi.com/auth/login', {
+        username: username,
+        password: password,
+      })
+      .then(function (response) {
+        setToken(response.data.token);
+        setIsAuthenticated(true);
+        // console.log(token);
+        const decoded = jwtDecode(response.data.token);
+        const temp = [];
+
+        Promise.all([
+          fetch(`https://fakestoreapi.com/carts/user/${decoded.sub}`)
+            .then(res => res.json())
+            .then(async json => {
+              for (var i = 0; i < json[0].products.length; i++) {
+                const response = await fetch(
+                  `https://fakestoreapi.com/products/${json[0].products[i].productId}`,
+                );
+
+                const product = await response.json();
+                product.count = json[0].products[i].quantity;
+                temp.push(product);
+              }
+            })
+            .then(() => {
+              setCart([...temp]);
+            }),
 
           fetch(`https://fakestoreapi.com/users/${decoded.sub}`)
             .then(res => res.json())
             .then(json => {
-              setUser({
-                ...user,
-                id: decoded.sub,
-                username: json.username,
-                name: json.name.firstname + ' ' + json.name.lastname,
-                email: json.email,
-                phone: json.phone,
-                address:
-                  json.address.number +
-                  ', ' +
-                  json.address.street +
-                  ', ' +
-                  json.address.city,
-              });
-              console.log(user);
-            });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      Alert.alert('Incorrect email or password1');
-    }
+              setUser(json);
+            }),
+        ]);
+      })
+      .catch(function (error) {
+        Alert.alert('Incorrect email or password');
+      });
   };
   const logout = () => {
     setIsAuthenticated(false);
+    setUser({});
+    setCart([]);
   };
 
   const addToCart = item => {

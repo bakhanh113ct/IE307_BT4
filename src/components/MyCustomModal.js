@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View, Pressable, Modal, Alert} from 'react-native';
 import React, {useState} from 'react';
+//20521450 - Nguyen Ba Khanh
 
 const MyCustomModal = ({message, modalVisible, onOK, onCancel}) => {
   return (

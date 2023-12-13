@@ -7,7 +7,6 @@ import {useAppContext} from '../contexts/AppContext';
 //20521450 - Nguyen Ba Khanh
 
 const SignUpPage = ({navigation}) => {
-  const [user, setUser, isAuthenticated, setIsAuthenticated] = useAppContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

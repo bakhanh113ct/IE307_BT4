@@ -2,15 +2,18 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useAppContext} from '../contexts/AppContext';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Colors from '../utils/Colors';
 import HomeScreen from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 import CategoryScreen from './CategoryScreen';
 import CartScreen from './CartScreen';
+import {StyleSheet, View} from 'react-native';
+import {Badge} from '@rneui/themed';
+//20521450 - Nguyen Ba Khanh
 
 const Tab = createBottomTabNavigator();
 
 const MainTab = ({navigation}) => {
+  const {cart} = useAppContext();
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -33,6 +36,19 @@ const MainTab = ({navigation}) => {
             default:
               iconName = 'home';
           }
+          if (iconName === 'cart') {
+            return (
+              <View style={styles.iconContainer}>
+                <Icon
+                  name={iconName}
+                  size={size}
+                  color={color}
+                  style={{right: -6}}
+                />
+                <Badge value={cart.length} status="error" />
+              </View>
+            );
+          }
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#679dda',
@@ -45,10 +61,22 @@ const MainTab = ({navigation}) => {
         component={ProfileScreen}
         options={{
           headerTitleAlign: 'center',
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  badge: {
+    top: -10,
+    left: -5,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    position: 'absolute',
+  },
+});
 
 export default MainTab;

@@ -2,6 +2,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAppContext} from '../contexts/AppContext';
+//20521450 - Nguyen Ba Khanh
 
 const CartItem = ({item, setModalVisible, setCurrentItem}) => {
   const {updateCountForCartItem} = useAppContext();
